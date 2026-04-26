@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# Environment secrets — NEVER commit these
+backend/.env
+frontend/.env.local
+
+# Database
+backend/dev.db
+backend/test.db
+
+# Node
+node_modules/
+dist/
+.next/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/

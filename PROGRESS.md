@@ -29,6 +29,11 @@
 
 - [X] 16. Vite + React scaffold
 - [X] 17. Tailwind CSS setup
+- [X] 18. Folder structure + router setup
+- [X] 19. Axios client + interceptors
+- [X] 20. Zustand stores (authStore, uiStore)
+- [X] 21. Auth pages (Login, Register)
+- [X] 22. App shell (Sidebar, Navbar, layout)
 
 ## In Progress
 (none)
@@ -42,11 +47,6 @@
 
 ### Frontend
 
-- [ ] 18. Folder structure + router setup
-- [ ] 19. Axios client + interceptors
-- [ ] 20. Zustand stores (authStore, uiStore)
-- [ ] 21. Auth pages (Login, Register)
-- [ ] 22. App shell (Sidebar, Navbar, layout)
 - [ ] 23. shadcn/ui setup + base components
 - [ ] 24. StatCard component
 - [ ] 25. Dashboard page

@@ -27,6 +27,9 @@
 - [X] 14. Users endpoint (router + service)
 - [X] 15. main.py (app init, CORS, router registration)
 
+- [X] 16. Vite + React scaffold
+- [X] 17. Tailwind CSS setup
+
 ## In Progress
 (none)
 
@@ -38,8 +41,7 @@
 
 
 ### Frontend
-- [ ] 16. Vite + React scaffold
-- [ ] 17. Tailwind CSS setup
+
 - [ ] 18. Folder structure + router setup
 - [ ] 19. Axios client + interceptors
 - [ ] 20. Zustand stores (authStore, uiStore)

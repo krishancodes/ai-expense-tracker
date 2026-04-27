@@ -27,7 +27,11 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
+from sqlalchemy import select
+
 from app.core.config import settings
+from app.core.db import AsyncSessionLocal
+from app.models.category import Category
 from app.routers import (
     auth,
     budgets,
@@ -50,9 +54,41 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("AI Expense Tracker API starting up…")
+    SYSTEM_CATEGORIES = [
+        {"name": "Food & Dining",    "icon": "🍽️", "color": "#F59E0B"},
+        {"name": "Transport",        "icon": "🚗", "color": "#3B82F6"},
+        {"name": "Entertainment",    "icon": "🎬", "color": "#8B5CF6"},
+        {"name": "Shopping",         "icon": "🛍️", "color": "#EC4899"},
+        {"name": "Health & Medical", "icon": "🏥", "color": "#10B981"},
+        {"name": "Education",        "icon": "📚", "color": "#06B6D4"},
+        {"name": "Housing",          "icon": "🏠", "color": "#6366F1"},
+        {"name": "Utilities",        "icon": "💡", "color": "#F97316"},
+        {"name": "Personal Care",    "icon": "💆", "color": "#14B8A6"},
+        {"name": "Travel",           "icon": "✈️", "color": "#0EA5E9"},
+        {"name": "Investments",      "icon": "📈", "color": "#22C55E"},
+        {"name": "Others",           "icon": "📦", "color": "#9CA3AF"},
+    ]
+    async with AsyncSessionLocal() as db:
+        for cat_data in SYSTEM_CATEGORIES:
+            result = await db.execute(
+                select(Category).where(
+                    Category.name == cat_data["name"],
+                    Category.is_system == True
+                )
+            )
+            existing = result.scalar_one_or_none()
+            if not existing:
+                cat = Category(
+                    name=cat_data["name"],
+                    icon=cat_data["icon"],
+                    color=cat_data["color"],
+                    is_system=True,
+                    user_id=None,
+                )
+                db.add(cat)
+        await db.commit()
+        print("✅ System categories seeded")
     yield
-    logger.info("AI Expense Tracker API shutting down…")
 
 
 # ── App factory ────────────────────────────────────────────────────────────────
